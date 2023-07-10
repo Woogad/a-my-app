@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- <ion-input type="hidden" value="assets/image/FpCQW-xXEAA9ZKK.jpg" [(ngModel)]="image"></ion-input> -->
+  <ion-input label="image" [(ngModel)]="image"></ion-input>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Username</ion-label>
+      <ion-input [(ngModel)]="username" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password" required>
+      </ion-input>
+    </ion-item>
+
+    <ion-button type="submit" (click)="gotonext()" expand="block">
+      Login
+    </ion-button>
+  </ion-list>
+
+</ion-content>
