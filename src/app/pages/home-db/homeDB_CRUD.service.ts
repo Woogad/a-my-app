@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, Firestore } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
 
 export interface CustomerData {
@@ -18,8 +18,29 @@ export class homeDB_CRUD {
     private _DB: any;
     constructor(private firestore: Firestore) { }
 
-    loadAllData(): Observable<CustomerData[]> {
-        const notesRef = collection(this.firestore, 'StudentCollection');
-        return collectionData(notesRef, { idField: 'id' }) as Observable<CustomerData[]>;
+    getDatas(): Observable<CustomerData[]> {
+        const dataColRef = collection(this.firestore, 'StudentCollection');
+        return collectionData(dataColRef, { idField: 'id' }) as Observable<CustomerData[]>;
     }
+
+    getDataById(id: any): Observable<CustomerData> {
+        const dataDocRef = doc(this.firestore, 'StudentCollection/' + id);
+        return docData(dataDocRef, { idField: 'id' }) as Observable<CustomerData>;
+    }
+
+    addData(customerData: CustomerData) {
+        const dataDocRef = collection(this.firestore, 'StudentCollection');
+        return addDoc(dataDocRef, customerData);
+    }
+
+    deleteData(customerData: CustomerData) {
+        const dataDocRef = doc(this.firestore, 'StudentCollection/' + customerData.id);
+        return deleteDoc(dataDocRef);
+    }
+
+    updateData(customerData: CustomerData) {
+        const dataDocRef = doc(this.firestore, 'StudentCollection/' + customerData.id);
+        return updateDoc(dataDocRef, { name: customerData.name, price: customerData.price });
+    }
+
 }
