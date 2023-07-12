@@ -10,7 +10,6 @@ import { NavController } from '@ionic/angular';
 export class HomePage implements OnInit {
   username: any;
   password: any;
-  image: any;
 
   constructor(public navCtrl: NavController, public router: Router) { }
 
@@ -23,7 +22,6 @@ export class HomePage implements OnInit {
     let dataobj = {
       getname: this.username,
       getpwd: this.password,
-      getimg: this.image,
     }
     let datastr = JSON.stringify(dataobj);
     this.router.navigate(['/home-result', datastr])

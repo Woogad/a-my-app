@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeResultPage implements OnInit {
   username: any;
   password: any;
-  image: any;
   data: any;
 
   constructor(public ar: ActivatedRoute) { }
@@ -20,19 +19,6 @@ export class HomeResultPage implements OnInit {
     this.data = JSON.parse(this.data);
     this.username = this.data['getname'];
     this.password = this.data['getpwd'];
-    this.image = this.data['getimg'];
-
-    if (this.image == 1) {
-      this.image = "assets/image/FpCQW-xXEAA9ZKK.jpg";
-    } else {
-      this.image = "assets/image/bread.jpg";
-    }
-
-    // this.ar.queryParams.subscribe(param => {
-    //   console.log(param);
-    //   let data = JSON.parse(param);
-    //   console.log(param['getname']);
-    // })
   }
 
 }
