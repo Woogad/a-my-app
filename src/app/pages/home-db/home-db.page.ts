@@ -1,6 +1,6 @@
 import { homeDB_CRUD, CustomerData } from './homeDB_CRUD.service';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home-db',
@@ -11,7 +11,7 @@ export class HomeDBPage implements OnInit {
 
   datalist: CustomerData[] = [];
 
-  constructor(private dataService: homeDB_CRUD, private alertCtrl: AlertController, private cd: ChangeDetectorRef) {
+  constructor(private dataService: homeDB_CRUD, private toastCtrl: ToastController, private alertCtrl: AlertController, private cd: ChangeDetectorRef) {
     this.dataService.getDatas().subscribe(res => {
       this.datalist = res;
       this.cd.detectChanges();
@@ -22,6 +22,11 @@ export class HomeDBPage implements OnInit {
   }
 
   async OnAddData() {
+    const toast = await this.toastCtrl.create({
+      message: 'Added Data',
+      duration: 1500,
+      position: 'bottom',
+    });
     const alert = await this.alertCtrl.create({
       header: 'Add Product',
       inputs: [
@@ -43,24 +48,36 @@ export class HomeDBPage implements OnInit {
         },
         {
           text: 'Add',
-          handler: (res) => {
+          handler: async (res) => {
             const data: CustomerData =
             {
               name: res.name,
               price: res.price
             };
             this.dataService.addData(data)
+            await toast.present();
           }
         }
       ]
     });
     await alert.present();
   }
-  OnDeleteData(customerData: CustomerData) {
+  async OnDeleteData(customerData: CustomerData) {
+    const toast = await this.toastCtrl.create({
+      message: 'Deleted Data',
+      duration: 1500,
+      position: 'bottom',
+    });
     this.dataService.deleteData(customerData)
+    await toast.present();
   }
 
   async OnUpdateData(customerData: CustomerData) {
+    const toast = await this.toastCtrl.create({
+      message: 'Updated Data',
+      duration: 1500,
+      position: 'bottom',
+    });
     const alert = await this.alertCtrl.create({
       header: 'Add Product',
       inputs: [
@@ -84,7 +101,7 @@ export class HomeDBPage implements OnInit {
         },
         {
           text: 'Update',
-          handler: (res) => {
+          handler: async (res) => {
             const data: CustomerData =
             {
               id: customerData.id,
@@ -92,6 +109,7 @@ export class HomeDBPage implements OnInit {
               price: res.price
             }
             this.dataService.updateData(data);
+            await toast.present();
           }
         }
       ]
