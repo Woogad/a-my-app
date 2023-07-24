@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login To Database</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password" required>
+      </ion-input>
+    </ion-item>
+
+    <ion-button type="submit" (click)="Login()" expand="block">
+      Login
+    </ion-button>
+    <ion-button type="submit" (click)="Register()" expand="block">
+      Register
+    </ion-button>
+  </ion-list>
+</ion-content>

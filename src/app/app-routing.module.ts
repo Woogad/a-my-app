@@ -24,6 +24,10 @@ const routes: Routes = [
     path: 'home-db',
     loadChildren: () => import('./pages/home-db/home-db.module').then( m => m.HomeDBPageModule)
   },
+  {
+    path: 'loginauth',
+    loadChildren: () => import('./pages/loginauth/loginauth.module').then( m => m.LoginauthPageModule)
+  },
 ];
 
 @NgModule({

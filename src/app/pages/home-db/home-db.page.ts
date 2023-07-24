@@ -1,6 +1,8 @@
 import { homeDB_CRUD, CustomerData } from './homeDB_CRUD.service';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { AuthService } from '../../services/auth.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-db',
@@ -11,7 +13,8 @@ export class HomeDBPage implements OnInit {
 
   datalist: CustomerData[] = [];
 
-  constructor(private dataService: homeDB_CRUD, private toastCtrl: ToastController, private alertCtrl: AlertController, private cd: ChangeDetectorRef) {
+  constructor(private dataService: homeDB_CRUD, private toastCtrl: ToastController, private alertCtrl: AlertController, private cd: ChangeDetectorRef,
+    private authService: AuthService, private loadingCtrl: LoadingController, private router: Router) {
     this.dataService.getDatas().subscribe(res => {
       this.datalist = res;
       this.cd.detectChanges();
@@ -115,6 +118,14 @@ export class HomeDBPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  async Logout() {
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+    this.authService.Logout();
+    await loading.dismiss();
+    this.router.navigateByUrl("/loginauth", { replaceUrl: true })
   }
 
 }
